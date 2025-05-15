@@ -289,7 +289,7 @@ export default function HeroSection() {
                 variants={scrollIndicatorVariants}
                 initial="initial"
                 animate="animate"
-                className="flex flex-col items-center cursor-pointer group"
+                className="flex flex-col gap-2 items-center cursor-pointer group"
                 onClick={scrollToNextSection}
                 role="button"
                 tabIndex={0}

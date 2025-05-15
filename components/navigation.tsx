@@ -180,7 +180,7 @@ export default function Navigation() {
       aria-label="Main navigation"
     >
       <NavBackground scrollY={scrollY} />
-      <div className="container mx-auto px-4 flex items-center justify-between">
+      <div className="max-w-[1200px] mx-auto px-4 flex items-center justify-between">
         <motion.div initial="initial" animate="animate" variants={logoVariants}>
           <Link
             href="#hero"
@@ -243,9 +243,7 @@ export default function Navigation() {
               variant="ghost"
               size="icon"
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              aria-label={`Switch to ${
-                theme === "dark" ? "light" : "dark"
-              } theme`}
+              aria-label="Switch theme"
               className="relative overflow-hidden group"
             >
               <motion.div
@@ -300,9 +298,7 @@ export default function Navigation() {
               variant="ghost"
               size="icon"
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              aria-label={`Switch to ${
-                theme === "dark" ? "light" : "dark"
-              } theme`}
+              aria-label="Switch theme"
               className="relative overflow-hidden group mr-2"
             >
               <motion.div
