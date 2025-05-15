@@ -1,20 +1,31 @@
 "use client";
 
-import { useState, useRef } from "react";
-import { motion } from "framer-motion";
 import Image from "next/image";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { ExternalLink, Github } from "lucide-react";
-import { useTheme } from "next-themes";
 
-export default function ProjectCard3D({ project }) {
+import { motion } from "framer-motion";
+import { useTheme } from "next-themes";
+import { useState, useRef } from "react";
+import { Button } from "@/components/ui/button";
+import { ExternalLink, Code } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+
+interface Project {
+  id: number;
+  title: string;
+  description: string;
+  image: string;
+  tags: string[];
+  category: string;
+  liveUrl?: string;
+  githubUrl: string;
+}
+
+export default function ProjectCard3D({ project }: { project: Project }) {
   const [isHovered, setIsHovered] = useState(false);
-  const cardRef = useRef(null);
+  const cardRef = useRef<HTMLDivElement>(null);
   const { theme } = useTheme();
 
-  // Track mouse position for 3D effect
-  const handleMouseMove = (e) => {
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!cardRef.current) return;
 
     const card = cardRef.current;
@@ -25,10 +36,10 @@ export default function ProjectCard3D({ project }) {
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
 
-    const rotateX = (y - centerY) / 10;
-    const rotateY = (centerX - x) / 10;
+    const rotateX = (y - centerY) / 12;
+    const rotateY = (centerX - x) / 12;
 
-    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
+    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.03, 1.03, 1.03)`;
   };
 
   const handleMouseLeave = () => {
@@ -50,8 +61,8 @@ export default function ProjectCard3D({ project }) {
         transition: "transform 0.3s ease",
       }}
     >
-      <Card className="h-full overflow-hidden border-2 hover:border-primary/50">
-        <div className="relative h-48 md:h-64 overflow-hidden">
+      <Card className="h-full overflow-hidden !bg-muted/30 border-2 hover:border-primary/50">
+        <div className="relative h-40 md:h-48 overflow-hidden">
           <Image
             src={project.image || "/placeholder.svg"}
             alt={project.title}
@@ -69,51 +80,57 @@ export default function ProjectCard3D({ project }) {
               opacity: isHovered ? 0.8 : 0.6,
             }}
           />
+          {project.category && (
+            <div className="absolute top-2 right-2 px-2 py-1 text-xs font-medium rounded-full bg-background/80 text-foreground">
+              {project.category}
+            </div>
+          )}
         </div>
-
-        <CardContent className="p-6">
-          <h3 className="text-xl font-bold mb-2">{project.title}</h3>
-          <p className="text-muted-foreground mb-4">{project.description}</p>
-
-          <div className="flex flex-wrap gap-2 mb-4">
+        <CardContent className="p-4 md:p-5">
+          <h3 className="text-lg md:text-xl font-bold mb-2 line-clamp-1">
+            {project.title}
+          </h3>
+          <p className="text-muted-foreground text-sm mb-3 line-clamp-2">
+            {project.description}
+          </p>
+          <div className="flex flex-wrap gap-1.5 mb-3">
             {project.tags.map((tag) => (
               <span
                 key={tag}
-                className="px-2 py-1 text-xs rounded-full bg-primary/10 text-primary"
+                className="px-2 py-0.5 text-xs rounded-full bg-primary/10 text-primary"
               >
                 {tag}
               </span>
             ))}
           </div>
-
-          <div className="flex gap-3 mt-4">
-            <Button variant="default" size="sm" asChild>
-              <a
-                href={project.liveUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-1"
-              >
-                <ExternalLink className="h-4 w-4" />
-                Live Demo
-              </a>
-            </Button>
-            <Button variant="outline" size="sm" asChild>
+          <div className="w-full flex gap-2 mt-3">
+            {project.liveUrl && (
+              <Button variant="default" size="sm" asChild className="w-full">
+                <a
+                  href={project.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1"
+                >
+                  <ExternalLink className="h-3.5 w-3.5" />
+                  Demo
+                </a>
+              </Button>
+            )}
+            <Button variant="outline" size="sm" asChild className="w-full">
               <a
                 href={project.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-1"
               >
-                <Github className="h-4 w-4" />
+                <Code className="h-3.5 w-3.5" />
                 Code
               </a>
             </Button>
           </div>
         </CardContent>
       </Card>
-
-      {/* 3D shadow effect */}
       <div
         className="absolute -z-10 inset-0 rounded-lg opacity-0 transition-opacity duration-300"
         style={{
