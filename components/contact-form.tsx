@@ -40,10 +40,12 @@ export default function ContactForm() {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch("/api/contact", {
+      // Send data to Formspree
+      const response = await fetch("https://formspree.io/f/xldbzbvd", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Accept: "application/json",
         },
         body: JSON.stringify(values),
       });
@@ -53,14 +55,14 @@ export default function ContactForm() {
       if (response.ok) {
         toast({
           title: "Success!",
-          description: data.message,
+          description:
+            "Your message has been sent successfully! I'll get back to you soon.",
         });
         form.reset();
       } else {
         toast({
           title: "Error",
-          description:
-            data.message || "Something went wrong. Please try again.",
+          description: data.error || "Something went wrong. Please try again.",
           variant: "destructive",
         });
       }
@@ -107,7 +109,12 @@ export default function ContactForm() {
       className="w-full"
     >
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="space-y-6"
+          action="https://formspree.io/f/xldbzbvd"
+          method="POST"
+        >
           <motion.div variants={itemVariants}>
             <FormField
               control={form.control}

@@ -588,6 +588,13 @@ export default function ContactCanvas() {
   // Client-side only code to prevent hydration mismatch
   useEffect(() => {
     setIsMounted(true);
+
+    // Force a re-render after component is mounted
+    const timer = setTimeout(() => {
+      setIsMounted((state) => state);
+    }, 100);
+
+    return () => clearTimeout(timer);
   }, []);
 
   if (!isMounted) {
@@ -603,6 +610,13 @@ export default function ContactCanvas() {
           antialias: !isMobile,
           alpha: true,
           powerPreference: "high-performance",
+        }}
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
         }}
       >
         <color attach="background" args={[backgroundColor]} />

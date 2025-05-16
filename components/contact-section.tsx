@@ -8,9 +8,8 @@ import ContactForm from "@/components/contact-form";
 import ContactInfo from "@/components/contact-info";
 import { Card, CardContent } from "@/components/ui/card";
 
-// Dynamically import the ContactCanvas component with SSR disabled
+// Dynamically import the ContactCanvas component
 const ContactCanvas = dynamic(() => import("@/components/contact-canvas"), {
-  ssr: false,
   loading: () => <div className="absolute inset-0 z-0 bg-background/30" />,
 });
 
@@ -100,14 +99,6 @@ const ContactSection = memo(function ContactSection() {
             >
               Get In Touch
             </motion.h2>
-            <motion.p
-              variants={itemVariants}
-              className="text-lg text-muted-foreground max-w-2xl mx-auto"
-            >
-              Have a project in mind or want to discuss potential opportunities?
-              I&apos;d love to hear from you. Fill out the form below or reach
-              out directly.
-            </motion.p>
           </motion.div>
 
           <motion.div
