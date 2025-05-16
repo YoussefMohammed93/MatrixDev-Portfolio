@@ -37,7 +37,7 @@ export default function SkillMarqueeWrapper() {
       variants={sectionVariants}
       className="py-20 md:py-24 bg-muted dark:bg-muted/50 relative"
     >
-      <div className="text-center mb-8 px-4">
+      <div className="text-center mb-8 px-5 sm:px-6">
         <motion.h2
           variants={titleVariants}
           className="text-3xl sm:text-4xl font-bold mb-4"

@@ -141,7 +141,7 @@ export default function HeroSection() {
       >
         <HeroCanvasWrapper />
         <div
-          className="relative z-10 h-full flex flex-col items-center justify-center px-4 sm:px-6 text-center"
+          className="relative z-10 h-full flex flex-col items-center justify-center px-5 sm:px-6 text-center"
           role="presentation"
         >
           <motion.div
@@ -158,7 +158,7 @@ export default function HeroSection() {
               aria-hidden="true"
             />
             <motion.div
-              className="relative z-10 flex flex-col items-center px-6 pb-8 pt-20 rounded-xl"
+              className="relative z-10 flex flex-col items-center px-5 sm:px-6 pb-8 pt-20 rounded-xl"
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
             >
               <motion.div variants={itemVariants}>
@@ -199,7 +199,7 @@ export default function HeroSection() {
                 >
                   Crafting exceptional digital experiences with{" "}
                   <span className="text-primary/90 font-medium">Next.js</span>,{" "}
-                  <span className="text-primary/90 font-medium">React</span>,
+                  <span className="text-primary/90 font-medium">React.js</span>,
                   and{" "}
                   <span className="text-primary/90 font-medium">
                     React Native
@@ -227,7 +227,7 @@ export default function HeroSection() {
                 >
                   <Button
                     size="lg"
-                    className="w-full sm:w-auto"
+                    className="rounded-full w-full sm:w-auto px-10"
                     onClick={() =>
                       window.open(
                         "https://github.com/YoussefMohammed93",
@@ -249,7 +249,7 @@ export default function HeroSection() {
                 >
                   <Button
                     size="lg"
-                    className="w-full sm:w-auto"
+                    className="rounded-full w-full sm:w-auto px-10"
                     variant="outline"
                     onClick={() =>
                       window.open("mailto:contact@youssefmohammed2093.com")
