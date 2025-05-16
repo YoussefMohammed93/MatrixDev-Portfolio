@@ -4,7 +4,7 @@ import Image from "next/image";
 
 import { motion } from "framer-motion";
 import { useTheme } from "next-themes";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ExternalLink, Code } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
@@ -23,7 +23,17 @@ interface Project {
 export default function ProjectCard3D({ project }: { project: Project }) {
   const [isHovered, setIsHovered] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
-  const { theme } = useTheme();
+  const { theme, systemTheme } = useTheme();
+
+  // Use a safe theme value that's consistent between server and client
+  const currentTheme = theme === "system" ? systemTheme : theme;
+
+  // Client-side only code to prevent hydration mismatch
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!cardRef.current) return;
@@ -63,23 +73,29 @@ export default function ProjectCard3D({ project }: { project: Project }) {
     >
       <Card className="h-full overflow-hidden !bg-muted/30 border-2 hover:border-primary/50">
         <div className="relative h-40 md:h-48 overflow-hidden">
-          <Image
-            src={project.image || "/placeholder.svg"}
-            alt={project.title}
-            fill
-            className="object-cover transition-transform duration-500"
-            style={{
-              transform: isHovered ? "scale(1.05)" : "scale(1)",
-            }}
-            placeholder="blur"
-            blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAb/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWEREiMxUf/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
-          />
-          <div
-            className="absolute inset-0 bg-gradient-to-t from-background to-transparent opacity-70"
-            style={{
-              opacity: isHovered ? 0.8 : 0.6,
-            }}
-          />
+          {isMounted ? (
+            <Image
+              src={project.image || "/placeholder.svg"}
+              alt={project.title}
+              fill
+              className="object-cover transition-transform duration-500"
+              style={{
+                transform: isHovered ? "scale(1.05)" : "scale(1)",
+              }}
+              placeholder="blur"
+              blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAb/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWEREiMxUf/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
+            />
+          ) : (
+            <div className="w-full h-full bg-muted/50" />
+          )}
+          {isMounted && (
+            <div
+              className="absolute inset-0 bg-gradient-to-t from-background to-transparent opacity-70"
+              style={{
+                opacity: isHovered ? 0.8 : 0.6,
+              }}
+            />
+          )}
           {project.category && (
             <div className="absolute top-2 right-2 px-2 py-1 text-xs font-medium rounded-full bg-background/80 text-foreground">
               {project.category}
@@ -131,19 +147,21 @@ export default function ProjectCard3D({ project }: { project: Project }) {
           </div>
         </CardContent>
       </Card>
-      <div
-        className="absolute -z-10 inset-0 rounded-lg opacity-0 transition-opacity duration-300"
-        style={{
-          opacity: isHovered ? 0.4 : 0,
-          transform: "translateZ(-50px)",
-          background:
-            theme === "dark"
-              ? "rgba(124, 58, 237, 0.2)"
-              : "rgba(79, 70, 229, 0.2)",
-          filter: "blur(20px)",
-          transformStyle: "preserve-3d",
-        }}
-      />
+      {isMounted && (
+        <div
+          className="absolute -z-10 inset-0 rounded-lg opacity-0 transition-opacity duration-300"
+          style={{
+            opacity: isHovered ? 0.4 : 0,
+            transform: "translateZ(-50px)",
+            background:
+              currentTheme === "dark"
+                ? "rgba(124, 58, 237, 0.2)"
+                : "rgba(79, 70, 229, 0.2)",
+            filter: "blur(20px)",
+            transformStyle: "preserve-3d",
+          }}
+        />
+      )}
     </motion.div>
   );
 }

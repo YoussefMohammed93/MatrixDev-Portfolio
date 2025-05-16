@@ -4,6 +4,7 @@ import type React from "react";
 import type { Metadata } from "next";
 
 import Navigation from "@/components/navigation";
+import { ToasterProvider } from "@/components/providers/toaster-provider";
 
 import { Ovo, Inter } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -65,6 +66,7 @@ export default function RootLayout({
         >
           <Navigation />
           <main id="main-content">{children}</main>
+          <ToasterProvider />
         </ThemeProvider>
       </body>
     </html>
