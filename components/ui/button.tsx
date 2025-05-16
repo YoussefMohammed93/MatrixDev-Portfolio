@@ -1,9 +1,8 @@
 import * as React from "react";
+import { cn } from "@/lib/utils";
+import { Inter } from "next/font/google";
 import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
-import { Inter } from "next/font/google";
-
-import { cn } from "@/lib/utils";
 
 const inter = Inter({ subsets: ["latin"] });
 
