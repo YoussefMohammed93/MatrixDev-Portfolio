@@ -66,7 +66,7 @@ const AboutSection = memo(function AboutSection() {
       <section
         id="about"
         ref={sectionRef}
-        className="py-16 sm:py-20 md:py-24 bg-muted/30"
+        className="py-16 sm:py-20 md:py-24 bg-muted dark:bg-muted/50"
         aria-labelledby="about-heading"
       >
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
@@ -161,7 +161,7 @@ const AboutSection = memo(function AboutSection() {
                     size="icon"
                     aria-label="GitHub Profile"
                     className={cn(
-                      "transition-colors hover:bg-primary/10",
+                      "",
                       "focus-visible:ring-2 focus-visible:ring-primary"
                     )}
                   >
@@ -193,7 +193,7 @@ const AboutSection = memo(function AboutSection() {
                     size="icon"
                     aria-label="LinkedIn Profile"
                     className={cn(
-                      "transition-colors hover:bg-primary/10",
+                      "",
                       "focus-visible:ring-2 focus-visible:ring-primary"
                     )}
                   >
@@ -226,7 +226,7 @@ const AboutSection = memo(function AboutSection() {
                     size="icon"
                     aria-label="Facebook Profile"
                     className={cn(
-                      "transition-colors hover:bg-primary/10",
+                      "",
                       "focus-visible:ring-2 focus-visible:ring-primary"
                     )}
                   >

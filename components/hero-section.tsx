@@ -1,26 +1,11 @@
 "use client";
 
-import dynamic from "next/dynamic";
+import HeroCanvasWrapper from "@/components/hero-canvas-wrapper";
 
-import { Button } from "@/components/ui/button";
-import { Suspense, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { ArrowDown, Mail, Github } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { motion, useAnimation, AnimatePresence } from "framer-motion";
-
-const HeroCanvas = dynamic(() => import("@/components/hero-canvas"), {
-  ssr: false,
-  loading: () => (
-    <div
-      className="absolute inset-0 flex items-center justify-center"
-      aria-hidden="true"
-    >
-      <div
-        className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin"
-        role="progressbar"
-      ></div>
-    </div>
-  ),
-});
 
 export default function HeroSection() {
   const controls = useAnimation();
@@ -154,11 +139,7 @@ export default function HeroSection() {
         aria-label="Hero section"
         role="region"
       >
-        <div className="absolute inset-0 z-0" aria-hidden="true">
-          <Suspense fallback={null}>
-            <HeroCanvas />
-          </Suspense>
-        </div>
+        <HeroCanvasWrapper />
         <div
           className="relative z-10 h-full flex flex-col items-center justify-center px-4 sm:px-6 text-center"
           role="presentation"

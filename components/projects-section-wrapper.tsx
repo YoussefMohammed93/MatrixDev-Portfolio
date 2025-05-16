@@ -1,15 +1,11 @@
 "use client";
 
-import dynamic from "next/dynamic";
+import ProjectCard3D from "@/components/project-card-3d";
 
 import { useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { motion, useInView } from "framer-motion";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-
-const ProjectCard3D = dynamic(() => import("@/components/project-card-3d"), {
-  ssr: false,
-});
 
 interface Project {
   id: number;
@@ -90,7 +86,7 @@ const projects: Project[] = [
   },
 ];
 
-export default function ProjectsSection() {
+export default function ProjectsSectionWrapper() {
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: false, amount: 0.1 });
   const [activeFilter, setActiveFilter] = useState("All");
@@ -120,7 +116,7 @@ export default function ProjectsSection() {
       : projects.filter((project) => project.category === activeFilter);
 
   return (
-    <section id="projects" ref={sectionRef} className="py-20 md:py-32">
+    <section id="projects" ref={sectionRef} className="py-20 md:py-24">
       <div className="max-w-[1200px] mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -132,8 +128,12 @@ export default function ProjectsSection() {
             Featured Projects
           </h2>
           <p className="text-lg text-muted-foreground max-w-4xl mx-auto">
-            A selection of my recent work, showcasing my skills in web
-            development and mobile app development.
+            A selection of my recent work showcasing my skills in web
+            development. Each project represents a unique challenge tackled
+            using modern technologies and best practices. From responsive web
+            applications to cross-platform mobile solutions, these projects
+            demonstrate my ability to deliver polished, user-focused
+            experiences.
           </p>
         </motion.div>
         <motion.div

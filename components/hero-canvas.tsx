@@ -19,7 +19,7 @@ const Scene = memo(function Scene({
   theme: string | undefined;
 }) {
   const groupRef = useRef<Group>(null);
-  const isMobile = useMobile();
+  const isMobile = useMobile ? useMobile() : false;
 
   const mousePositionRef = useRef({ x: 0, y: 0 });
 
@@ -105,7 +105,7 @@ const ParticleField = memo(function ParticleField({
     return new Float32Array(particles.flatMap((p) => p.position));
   }, [particles]);
 
-  useFrame((state, delta) => {
+  useFrame((_, delta) => {
     if (points.current) {
       points.current.rotation.y += delta * 0.05;
       points.current.rotation.x += delta * 0.025;
@@ -154,7 +154,7 @@ function throttle(callback: Function, limit: number) {
 const HeroCanvas = memo(function HeroCanvas() {
   const [scrollY, setScrollY] = useState(0);
   const { theme } = useTheme();
-  const isMobile = useMobile();
+  const isMobile = useMobile ? useMobile() : false;
 
   useEffect(() => {
     const handleScroll = throttle(() => {
@@ -196,4 +196,3 @@ const HeroCanvas = memo(function HeroCanvas() {
 });
 
 export default HeroCanvas;
-
