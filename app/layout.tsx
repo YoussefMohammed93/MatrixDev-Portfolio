@@ -1,13 +1,13 @@
 import "./globals.css";
 
 import type React from "react";
-import type { Metadata } from "next";
-
+import Footer from "@/components/footer";
 import Navigation from "@/components/navigation";
-import { ToasterProvider } from "@/components/providers/toaster-provider";
 
+import type { Metadata } from "next";
 import { Ovo, Inter } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
+import { ToasterProvider } from "@/components/providers/toaster-provider";
 
 const ovo = Ovo({
   weight: "400",
@@ -66,6 +66,7 @@ export default function RootLayout({
         >
           <Navigation />
           <main id="main-content">{children}</main>
+          <Footer />
           <ToasterProvider />
         </ThemeProvider>
       </body>
