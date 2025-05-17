@@ -235,8 +235,8 @@ export default function Navigation() {
       <div className="max-w-[1360px] mx-auto px-4 flex items-center justify-between">
         <motion.div initial="initial" animate="animate" variants={logoVariants}>
           <Link
-            href="#hero"
-            aria-label="Go to home section"
+            href="/"
+            aria-label="Go to home page"
             className="text-2xl sm:text-3xl font-bold tracking-tighter"
           >
             Matrix<span className="text-primary">Dev</span>
@@ -256,7 +256,7 @@ export default function Navigation() {
               className="relative"
             >
               <Link
-                href={link.href}
+                href={isProjectsPage ? `/${link.href}` : link.href}
                 className={cn(
                   "text-sm sm:text-base font-medium transition-all px-1 py-2 relative group",
                   link.id === "hero" && isProjectsPage
@@ -475,7 +475,7 @@ export default function Navigation() {
                   className="overflow-hidden"
                 >
                   <Link
-                    href={link.href}
+                    href={isProjectsPage ? `/${link.href}` : link.href}
                     className={cn(
                       "flex items-center text-sm font-medium py-3 px-3 rounded-md transition-all relative overflow-hidden",
                       link.id === "hero" && isProjectsPage

@@ -52,6 +52,15 @@ export default function Footer() {
     { name: "Contact", href: "#contact" },
   ];
 
+  const [isProjectsPage, setIsProjectsPage] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const pathname = window.location.pathname;
+      setIsProjectsPage(pathname.startsWith("/projects"));
+    }
+  }, []);
+
   return (
     <footer
       ref={footerRef}
@@ -69,8 +78,8 @@ export default function Footer() {
             className="flex flex-col items-start space-y-3"
           >
             <Link
-              href="#hero"
-              aria-label="Go to home section"
+              href={isProjectsPage ? "/" : "#hero"}
+              aria-label="Go to home page"
               className="text-xl sm:text-2xl font-bold tracking-tighter"
             >
               Matrix<span className="text-primary">Dev</span>
@@ -89,7 +98,7 @@ export default function Footer() {
               {navLinks.map((link) => (
                 <Link
                   key={link.name}
-                  href={link.href}
+                  href={isProjectsPage ? `/${link.href}` : link.href}
                   className="text-sm sm:text-base text-muted-foreground hover:text-primary transition-colors"
                 >
                   {link.name}

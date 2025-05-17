@@ -118,7 +118,7 @@ export const projects: Project[] = [
       "Implementing natural-feeling message interactions like swipe replies and long-press menus proved challenging. Image handling across different devices and ensuring proper display in both message threads and full-screen mode required significant optimization.",
     solution:
       "I built the application using React Native for the frontend with Convex powering the backend for real-time messaging capabilities. The UI design takes inspiration from WhatsApp's clean interface while adding custom interaction patterns for an intuitive messaging experience.",
-    image: "/voxa-1.png",
+    image: "/voxa-1.jpeg",
     galleryImages: [
       "/voxa-2.jpeg",
       "/voxa-3.jpeg",
@@ -155,7 +155,7 @@ export const projects: Project[] = [
     category: "Fullstack",
     liveUrl: "https://notion-clone-matrix.vercel.app",
     githubUrl: "https://github.com/YoussefMohammed93/Notion-Clone",
-    featured: false,
+    featured: true,
   },
   {
     id: 6,
@@ -193,7 +193,7 @@ export const projects: Project[] = [
     category: "Fullstack",
     liveUrl: "https://e-commerce-react-js-matrix.vercel.app",
     githubUrl: "https://github.com/YoussefMohammed93/Matbook",
-    featured: false,
+    featured: true,
   },
   {
     id: 8,
