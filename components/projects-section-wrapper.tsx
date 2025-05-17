@@ -127,13 +127,9 @@ export default function ProjectsSectionWrapper() {
           <h2 className="text-3xl md:text-4xl font-bold tracking-tighter mb-4">
             Featured Projects
           </h2>
-          <p className="text-lg text-muted-foreground max-w-4xl mx-auto">
-            A selection of my recent work showcasing my skills in web
-            development. Each project represents a unique challenge tackled
-            using modern technologies and best practices. From responsive web
-            applications to cross-platform mobile solutions, these projects
-            demonstrate my ability to deliver polished, user-focused
-            experiences.
+          <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
+            A curated collection of my recent web development projects
+            showcasing modern technologies and user-focused solutions.
           </p>
         </motion.div>
         <motion.div

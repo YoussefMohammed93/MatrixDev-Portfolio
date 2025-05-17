@@ -46,12 +46,11 @@ export default function SkillMarqueeWrapper() {
         </motion.h2>
         <motion.p
           variants={titleVariants}
-          className="text-lg text-muted-foreground max-w-4xl mx-auto pb-8"
+          className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto pb-5"
         >
           Continuous flow of technologies I work with daily. Specialized in
           modern web frameworks and libraries that power responsive, interactive
-          user experiences. From frontend essentials to backend integrations,
-          these tools form the foundation of my development workflow.{" "}
+          user experiences.
         </motion.p>
       </div>
       <div className="relative w-full overflow-hidden py-8">

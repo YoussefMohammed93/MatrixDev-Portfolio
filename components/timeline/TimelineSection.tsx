@@ -78,10 +78,10 @@ export default function TimelineSection() {
       )}
       <section
         ref={sectionRef}
-        className="py-10 sm:py-16 md:py-24 w-full overflow-hidden bg-muted dark:bg-muted/50"
+        className="py-20 md:py-24 w-full overflow-hidden bg-muted dark:bg-muted/50"
         aria-labelledby="timeline-heading"
       >
-        <div className="max-w-[1360px] mx-auto px-2 xs:px-3 sm:px-5 w-full">
+        <div className="max-w-[1360px] mx-auto px-5 sm:px-6 w-full">
           <div className="text-center mb-8 sm:mb-12 md:mb-16">
             <motion.h2
               id="timeline-heading"
@@ -96,7 +96,7 @@ export default function TimelineSection() {
               variants={subtitleVariants}
               initial="hidden"
               animate={isMounted && isInView ? "visible" : "hidden"}
-              className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-3xl mx-auto px-2"
+              className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto"
             >
               Explore my education and professional experience that has shaped
               my skills and expertise in frontend and full-stack development.

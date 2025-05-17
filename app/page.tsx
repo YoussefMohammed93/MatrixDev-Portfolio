@@ -4,6 +4,7 @@ import AboutSection from "@/components/about-section";
 import ContactSection from "@/components/contact-section";
 import SkillMarqueeWrapper from "@/components/SkillMarqueeWrapper";
 import ProjectsSectionWrapper from "@/components/projects-section-wrapper";
+import ServicesSectionWrapper from "@/components/services-section-wrapper";
 import TimelineSectionWrapper from "@/components/timeline/TimelineSectionWrapper";
 
 export default function Home() {
@@ -14,6 +15,7 @@ export default function Home() {
       <ProjectsSectionWrapper />
       <TimelineSectionWrapper />
       <SkillMarqueeWrapper />
+      <ServicesSectionWrapper />
       <ContactSection />
       <BackToTop />
     </main>

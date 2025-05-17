@@ -57,8 +57,14 @@ function useActiveSection(sections: Array<{ id: string }>, offset = 100) {
 
         const visiblePercentage = (visibleHeight / offsetHeight) * 100;
 
+        // Special cases for sections that need better detection
         if (section.id === "timeline" && visiblePercentage > 30) {
           currentSection = "timeline";
+          break;
+        }
+
+        if (section.id === "services" && visiblePercentage > 25) {
+          currentSection = "services";
           break;
         }
 
@@ -122,6 +128,12 @@ export default function Navigation() {
       href: "#skills",
       id: "skills",
       ariaLabel: "Navigate to skills section",
+    },
+    {
+      name: "Services",
+      href: "#services",
+      id: "services",
+      ariaLabel: "Navigate to services section",
     },
     {
       name: "Contact",
