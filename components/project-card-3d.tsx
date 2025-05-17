@@ -1,34 +1,25 @@
 "use client";
 
+import Link from "next/link";
 import Image from "next/image";
 
 import { motion } from "framer-motion";
 import { useTheme } from "next-themes";
-import { useState, useRef, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { Project } from "@/data/projectsData";
+import { Code, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, Code } from "lucide-react";
+import { useState, useRef, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
-
-interface Project {
-  id: number;
-  title: string;
-  description: string;
-  image: string;
-  tags: string[];
-  category: string;
-  liveUrl?: string;
-  githubUrl: string;
-}
 
 export default function ProjectCard3D({ project }: { project: Project }) {
   const [isHovered, setIsHovered] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
   const { theme, systemTheme } = useTheme();
+  const router = useRouter();
 
-  // Use a safe theme value that's consistent between server and client
   const currentTheme = theme === "system" ? systemTheme : theme;
 
-  // Client-side only code to prevent hydration mismatch
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -59,6 +50,10 @@ export default function ProjectCard3D({ project }: { project: Project }) {
     setIsHovered(false);
   };
 
+  const handleCardClick = () => {
+    router.push(`/projects/${project.id}`);
+  };
+
   return (
     <motion.div
       ref={cardRef}
@@ -71,7 +66,10 @@ export default function ProjectCard3D({ project }: { project: Project }) {
         transition: "transform 0.3s ease",
       }}
     >
-      <Card className="h-full overflow-hidden !bg-muted/30 border-2 hover:border-primary/50">
+      <Card
+        className="h-full overflow-hidden !bg-muted/30 border-2 hover:border-primary/50 cursor-pointer"
+        onClick={handleCardClick}
+      >
         <div className="relative h-40 md:h-48 overflow-hidden">
           {isMounted ? (
             <Image
@@ -119,20 +117,19 @@ export default function ProjectCard3D({ project }: { project: Project }) {
               </span>
             ))}
           </div>
-          <div className="w-full flex gap-2 mt-3">
-            {project.liveUrl && (
-              <Button variant="default" size="sm" asChild className="w-full">
-                <a
-                  href={project.liveUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-1"
-                >
-                  <ExternalLink className="h-3.5 w-3.5" />
-                  Demo
-                </a>
-              </Button>
-            )}
+          <div
+            className="w-full flex gap-2 mt-3"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <Button variant="default" size="sm" asChild className="w-full">
+              <Link
+                href={`/projects/${project.id}`}
+                className="flex items-center gap-1"
+              >
+                <ArrowRight className="h-3.5 w-3.5" />
+                Details
+              </Link>
+            </Button>
             <Button variant="outline" size="sm" asChild className="w-full">
               <a
                 href={project.githubUrl}

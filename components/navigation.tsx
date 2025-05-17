@@ -31,9 +31,21 @@ function throttle<T extends (...args: any[]) => any>(
 
 function useActiveSection(sections: Array<{ id: string }>, offset = 100) {
   const [activeSection, setActiveSection] = useState("hero");
+  const [isProjectsPage, setIsProjectsPage] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const pathname = window.location.pathname;
+      setIsProjectsPage(pathname.startsWith("/projects"));
+    }
+  }, []);
 
   useEffect(() => {
     const handleScroll = throttle(() => {
+      if (isProjectsPage) {
+        return;
+      }
+
       const viewportHeight = window.innerHeight;
       let currentSection = "hero";
       let maxVisibleArea = 0;
@@ -57,7 +69,6 @@ function useActiveSection(sections: Array<{ id: string }>, offset = 100) {
 
         const visiblePercentage = (visibleHeight / offsetHeight) * 100;
 
-        // Special cases for sections that need better detection
         if (section.id === "timeline" && visiblePercentage > 30) {
           currentSection = "timeline";
           break;
@@ -84,9 +95,9 @@ function useActiveSection(sections: Array<{ id: string }>, offset = 100) {
     handleScroll();
 
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [sections, offset, activeSection]);
+  }, [sections, offset, activeSection, isProjectsPage]);
 
-  return activeSection;
+  return { activeSection, isProjectsPage };
 }
 
 export default function Navigation() {
@@ -143,7 +154,7 @@ export default function Navigation() {
     },
   ];
 
-  const activeSection = useActiveSection(navLinks, 150);
+  const { activeSection, isProjectsPage } = useActiveSection(navLinks, 150);
 
   useEffect(() => {
     const handleScroll = throttle(() => {
@@ -248,7 +259,9 @@ export default function Navigation() {
                 href={link.href}
                 className={cn(
                   "text-sm sm:text-base font-medium transition-all px-1 py-2 relative group",
-                  activeSection === link.id
+                  link.id === "hero" && isProjectsPage
+                    ? "hover:text-primary"
+                    : activeSection === link.id
                     ? "text-primary"
                     : "hover:text-primary"
                 )}
@@ -262,15 +275,16 @@ export default function Navigation() {
                   whileHover={{ width: "100%" }}
                   transition={{ duration: 0.2 }}
                 />
-                {activeSection === link.id && (
-                  <motion.div
-                    layoutId="activeSection"
-                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary rounded-full"
-                    initial={{ opacity: 0, width: "30%" }}
-                    animate={{ opacity: 1, width: "100%" }}
-                    transition={{ duration: 0.3 }}
-                  />
-                )}
+                {activeSection === link.id &&
+                  !(link.id === "hero" && isProjectsPage) && (
+                    <motion.div
+                      layoutId="activeSection"
+                      className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary rounded-full"
+                      initial={{ opacity: 0, width: "30%" }}
+                      animate={{ opacity: 1, width: "100%" }}
+                      transition={{ duration: 0.3 }}
+                    />
+                  )}
               </Link>
             </motion.div>
           ))}
@@ -464,7 +478,9 @@ export default function Navigation() {
                     href={link.href}
                     className={cn(
                       "flex items-center text-sm font-medium py-3 px-3 rounded-md transition-all relative overflow-hidden",
-                      activeSection === link.id
+                      link.id === "hero" && isProjectsPage
+                        ? "hover:bg-primary/5"
+                        : activeSection === link.id
                         ? "bg-primary/10 text-primary"
                         : "hover:bg-primary/5"
                     )}
@@ -487,19 +503,20 @@ export default function Navigation() {
                       transition={{ duration: 0.3 }}
                     >
                       {link.name}
-                      {activeSection === link.id && (
-                        <motion.div
-                          layoutId="activeMobileSection"
-                          className="ml-2 h-2 w-2 rounded-full bg-primary"
-                          initial={{ scale: 0 }}
-                          animate={{ scale: 1 }}
-                          transition={{
-                            type: "spring",
-                            stiffness: 300,
-                            damping: 20,
-                          }}
-                        />
-                      )}
+                      {activeSection === link.id &&
+                        !(link.id === "hero" && isProjectsPage) && (
+                          <motion.div
+                            layoutId="activeMobileSection"
+                            className="ml-2 h-2 w-2 rounded-full bg-primary"
+                            initial={{ scale: 0 }}
+                            animate={{ scale: 1 }}
+                            transition={{
+                              type: "spring",
+                              stiffness: 300,
+                              damping: 20,
+                            }}
+                          />
+                        )}
                     </motion.div>
                   </Link>
                 </motion.div>
