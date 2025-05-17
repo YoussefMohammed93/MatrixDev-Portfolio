@@ -4,15 +4,14 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getProjectById } from "@/data/projectsData";
 
-type PageProps = {
-  params: { id: string };
+type Props = {
+  params: Promise<{ id: string }>;
   searchParams?: Record<string, string | string[] | undefined>;
 };
 
-export async function generateMetadata({
-  params,
-}: PageProps): Promise<Metadata> {
-  const projectId = parseInt(params.id, 10);
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const resolvedParams = await params;
+  const projectId = parseInt(resolvedParams.id, 10);
   const project = getProjectById(projectId);
 
   if (!project) {
@@ -36,8 +35,9 @@ export async function generateMetadata({
   };
 }
 
-export default function ProjectPage({ params }: PageProps) {
-  const projectId = parseInt(params.id, 10);
+export default async function ProjectPage({ params }: Props) {
+  const resolvedParams = await params;
+  const projectId = parseInt(resolvedParams.id, 10);
   const project = getProjectById(projectId);
 
   if (!project) {
