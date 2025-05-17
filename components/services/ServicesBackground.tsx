@@ -7,7 +7,7 @@ import { useMobile } from "@/hooks/use-mobile";
 
 export default function ServicesBackground() {
   const { theme } = useTheme();
-  const isMobile = useMobile ? useMobile() : false;
+  const isMobile = useMobile();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {

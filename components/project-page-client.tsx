@@ -10,15 +10,31 @@ interface ProjectPageClientProps {
 }
 
 export default function ProjectPageClient({ id }: ProjectPageClientProps) {
-  const projectId = parseInt(id, 10);
+  let projectId: number;
+
+  try {
+    projectId = parseInt(id, 10);
+
+    if (isNaN(projectId)) {
+      const matches = id.match(/\d+/);
+      if (matches && matches.length > 0) {
+        projectId = parseInt(matches[0], 10);
+      }
+    }
+
+    console.log("Parsed project ID:", projectId, "Type:", typeof projectId);
+  } catch (error) {
+    console.error("Error parsing project ID:", error);
+    return notFound();
+  }
+
   const project = getProjectById(projectId);
+  console.log("Project found:", project ? "Yes" : "No");
 
   useEffect(() => {
     if (project) {
-      // Update document title on the client side
       document.title = `${project.title} | Youssef Mohammed`;
 
-      // You could also update meta description if needed
       const metaDescription = document.querySelector(
         'meta[name="description"]'
       );
@@ -28,8 +44,14 @@ export default function ProjectPageClient({ id }: ProjectPageClientProps) {
     }
   }, [project]);
 
+  if (isNaN(projectId)) {
+    console.error("Invalid project ID format:", id);
+    return notFound();
+  }
+
   if (!project) {
-    notFound();
+    console.error("Project not found with ID:", projectId);
+    return notFound();
   }
 
   return <ProjectDetail project={project} />;
