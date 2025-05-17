@@ -1,17 +1,16 @@
-import ProjectDetail from "@/components/project-detail";
+import ProjectPageClient from "@/components/project-page-client";
 
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
 import { getProjectById } from "@/data/projectsData";
 
 type Props = {
-  params: Promise<{ id: string }>;
-  searchParams?: Record<string, string | string[] | undefined>;
+  params: {
+    id: string;
+  };
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const resolvedParams = await params;
-  const projectId = parseInt(resolvedParams.id, 10);
+  const projectId = parseInt(params.id, 10);
   const project = getProjectById(projectId);
 
   if (!project) {
@@ -24,25 +23,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${project.title} | Youssef Mohammed`,
     description: project.description,
-    keywords: [
-      "Youssef Mohammed",
-      "Frontend Developer",
-      ...project.tags,
-      project.category,
-      "Web Development",
-      "Portfolio Project",
-    ],
+    keywords: [...project.tags, "Youssef Mohammed", "Portfolio", "Project"],
   };
 }
 
-export default async function ProjectPage({ params }: Props) {
-  const resolvedParams = await params;
-  const projectId = parseInt(resolvedParams.id, 10);
-  const project = getProjectById(projectId);
-
-  if (!project) {
-    notFound();
-  }
-
-  return <ProjectDetail project={project} />;
+export default function ProjectPage({ params }: Props) {
+  return <ProjectPageClient id={params.id} />;
 }
