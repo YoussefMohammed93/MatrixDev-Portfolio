@@ -3,8 +3,8 @@
 import dynamic from "next/dynamic";
 import TimelineSection from "./TimelineSection";
 
+// In Next.js 15, ssr: false is not allowed in Server Components
 const TimelineBackground = dynamic(() => import("./TimelineBackground"), {
-  ssr: false,
   loading: () => <div className="absolute inset-0 z-0 bg-background/30" />,
 });
 

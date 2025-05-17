@@ -1,60 +1,52 @@
-"use client";
-
 import Link from "next/link";
 import Image from "next/image";
-
-import { cn } from "@/lib/utils";
-import { useRef, memo } from "react";
+import { Metadata } from "next";
+import { FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Facebook, FileText } from "lucide-react";
-import { motion, useInView, useReducedMotion } from "framer-motion";
+import AboutSectionClient from "./about-section-client";
 
-const aboutStructuredData = {
+export const aboutStructuredData = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: "Youssef Mohammed",
   jobTitle: "Frontend Developer",
   description:
-    "Frontend Developer specializing in Next.js, React.js, and React Native",
+    "Frontend Developer specializing in Next.js, React.js, and React Native with 3 years of experience",
   knowsAbout: [
     "React",
     "Next.js",
     "JavaScript",
+    "TypeScript",
     "CSS",
     "React Native",
     "Web Development",
+    "Mobile Development",
   ],
   url: "https://youssefmohammed.com",
+  sameAs: [
+    "https://github.com/YoussefMohammed93",
+    "https://www.linkedin.com/in/youssef-mohammed-6893a031b",
+    "https://www.facebook.com/profile.php?id=61552702670893",
+  ],
+  alumniOf: {
+    "@type": "CollegeOrUniversity",
+    name: "Mansoura University",
+    department: "Faculty of Computer Science",
+  },
 };
 
-const AboutSection = memo(function AboutSection() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const isInView = useInView(sectionRef, {
-    once: false,
-    amount: 0.2,
-    margin: "0px 0px -100px 0px",
-  });
-  const prefersReducedMotion = useReducedMotion();
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: prefersReducedMotion ? 0 : 0.2,
-      },
+export function generateMetadata(): Metadata {
+  return {
+    title: "About Youssef Mohammed - Frontend Developer",
+    description:
+      "Learn about Youssef Mohammed, a Frontend Developer specializing in Next.js, React.js, and React Native with 3 years of experience.",
+    alternates: {
+      canonical: "https://youssefmohammed.com/about",
     },
   };
+}
 
-  const itemVariants = {
-    hidden: prefersReducedMotion ? { opacity: 0.9 } : { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: prefersReducedMotion ? 0.1 : 0.6 },
-    },
-  };
-
+export default function AboutSection() {
   return (
     <>
       <script
@@ -65,87 +57,94 @@ const AboutSection = memo(function AboutSection() {
       />
       <section
         id="about"
-        ref={sectionRef}
         className="py-16 sm:py-20 md:py-24 bg-muted dark:bg-muted/50"
         aria-labelledby="about-heading"
+        itemScope
+        itemType="https://schema.org/AboutPage"
       >
         <div className="max-w-[1360px] mx-auto px-5 sm:px-6">
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            animate={isInView ? "visible" : "hidden"}
-            className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center"
-          >
-            <motion.div
-              variants={itemVariants}
+          <AboutSectionClient>
+            <div
               className="relative h-[500px] rounded-lg overflow-hidden order-2 md:order-1 md:col-span-4 w-full"
+              itemProp="image"
+              itemScope
+              itemType="https://schema.org/ImageObject"
             >
               <Image
                 src="/me-about.jpg"
                 alt="Youssef Mohammed - Frontend Developer"
                 fill
-                sizes="(max-width: 640px) 100vw, (max-width: 768px) 33vw, 33vw"
+                sizes="(max-width: 640px) 100vw, (max-width: 768px) 33vw, 400px"
                 className="object-cover"
                 loading="eager"
                 fetchPriority="high"
-                quality={95}
+                quality={85}
                 priority
                 placeholder="blur"
-                blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAb/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWEREiMxUf/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
+                blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAQABADASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAb/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWEREiMxUf/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
                 style={{
                   objectFit: "cover",
                 }}
               />
-            </motion.div>
-            <motion.div
-              variants={itemVariants}
-              className="space-y-5 sm:space-y-6 order-1 md:order-2 md:col-span-8"
-            >
-              <motion.div variants={itemVariants}>
+              <meta
+                itemProp="url"
+                content="https://youssefmohammed.com/me-about.jpg"
+              />
+              <meta
+                itemProp="contentUrl"
+                content="https://youssefmohammed.com/me-about.jpg"
+              />
+            </div>
+            <div className="space-y-5 sm:space-y-6 order-1 md:order-2 md:col-span-8">
+              <div>
                 <h2
                   id="about-heading"
                   className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tighter mb-3 sm:mb-4"
+                  itemProp="headline"
                 >
                   About Me
                 </h2>
                 <div className="w-16 sm:w-20 h-1 bg-primary mb-4 sm:mb-6"></div>
-              </motion.div>
-              <motion.p
-                variants={itemVariants}
+              </div>
+              <p
                 className="text-base sm:text-lg text-muted-foreground"
+                itemProp="description"
               >
                 I am a Frontend developer specializing in Next.js, with 3 years
                 of experience and a strong foundation in front-end technologies
                 like React, JavaScript, CSS. I excel at building dynamic,
                 responsive web applications and have extended my skill set to
                 include mobile app development using React Native.
-              </motion.p>
-              <motion.p
-                variants={itemVariants}
+              </p>
+              <p
                 className="text-base sm:text-lg text-muted-foreground"
+                itemProp="description"
               >
                 Passionate about creating seamless user experiences, I thrive in
                 collaborative environments and am committed to continuous
                 learning and growth in the ever-evolving field of web and mobile
                 development. I'm also a student in the Faculty of Computer
                 Science at Mansoura University.
-              </motion.p>
-              <motion.p
-                variants={itemVariants}
+              </p>
+              <p
                 className="text-base sm:text-lg text-muted-foreground"
+                itemProp="description"
               >
                 Outside of coding, I enjoy exploring new technologies,
                 contributing to open-source projects, and staying updated with
                 trends in software development. I believe in writing clean,
                 maintainable code and refining my skills through hands-on
                 projects and community engagement.
-              </motion.p>
-              <motion.div
-                variants={itemVariants}
-                className="pt-3 sm:pt-4 flex flex-wrap gap-3 sm:gap-4"
-              >
+              </p>
+              <div className="pt-3 sm:pt-4 flex flex-wrap gap-3 sm:gap-4">
                 <Button className="gap-2" aria-label="Download CV" asChild>
-                  <a href="/resume.pdf" download="Youssef_Mohammed_CV.pdf">
+                  <a
+                    href="/resume.pdf"
+                    download="Youssef_Mohammed_CV.pdf"
+                    rel="noopener noreferrer"
+                    type="application/pdf"
+                    itemProp="contentUrl"
+                  >
                     <FileText className="h-4 w-4" />
                     <span>Download CV</span>
                   </a>
@@ -153,17 +152,16 @@ const AboutSection = memo(function AboutSection() {
                 <Link
                   href="https://github.com/YoussefMohammed93"
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="noopener noreferrer me external"
                   passHref
+                  aria-label="GitHub Profile"
+                  itemProp="sameAs"
                 >
                   <Button
                     variant="outline"
                     size="icon"
                     aria-label="GitHub Profile"
-                    className={cn(
-                      "",
-                      "focus-visible:ring-2 focus-visible:ring-primary"
-                    )}
+                    className="focus-visible:ring-2 focus-visible:ring-primary"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -185,17 +183,16 @@ const AboutSection = memo(function AboutSection() {
                 <Link
                   href="https://www.linkedin.com/in/youssef-mohammed-6893a031b"
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="noopener noreferrer me external"
                   passHref
+                  aria-label="LinkedIn Profile"
+                  itemProp="sameAs"
                 >
                   <Button
                     variant="outline"
                     size="icon"
                     aria-label="LinkedIn Profile"
-                    className={cn(
-                      "",
-                      "focus-visible:ring-2 focus-visible:ring-primary"
-                    )}
+                    className="focus-visible:ring-2 focus-visible:ring-primary"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -218,29 +215,38 @@ const AboutSection = memo(function AboutSection() {
                 <Link
                   href="https://www.facebook.com/profile.php?id=61552702670893"
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="noopener noreferrer me external"
                   passHref
+                  aria-label="Facebook Profile"
+                  itemProp="sameAs"
                 >
                   <Button
                     variant="outline"
                     size="icon"
                     aria-label="Facebook Profile"
-                    className={cn(
-                      "",
-                      "focus-visible:ring-2 focus-visible:ring-primary"
-                    )}
+                    className="focus-visible:ring-2 focus-visible:ring-primary"
                   >
-                    <Facebook className="size-5" />
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="h-5 w-5"
+                      aria-hidden="true"
+                    >
+                      <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                    </svg>
                     <span className="sr-only">Facebook</span>
                   </Button>
                 </Link>
-              </motion.div>
-            </motion.div>
-          </motion.div>
+              </div>
+            </div>
+          </AboutSectionClient>
         </div>
       </section>
     </>
   );
-});
-
-export default AboutSection;
+}

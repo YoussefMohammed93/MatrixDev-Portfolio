@@ -11,7 +11,6 @@ import { useState, useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
 const NavBackground = dynamic(() => import("@/components/nav-background"), {
-  ssr: false,
   loading: () => <div className="absolute inset-0 z-0 bg-background/30" />,
 });
 
