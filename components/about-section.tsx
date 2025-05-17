@@ -69,7 +69,7 @@ const AboutSection = memo(function AboutSection() {
         className="py-16 sm:py-20 md:py-24 bg-muted dark:bg-muted/50"
         aria-labelledby="about-heading"
       >
-        <div className="max-w-[1200px] mx-auto px-5 sm:px-6">
+        <div className="max-w-[1360px] mx-auto px-5 sm:px-6">
           <motion.div
             variants={containerVariants}
             initial="hidden"

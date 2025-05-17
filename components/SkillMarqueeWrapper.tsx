@@ -35,7 +35,7 @@ export default function SkillMarqueeWrapper() {
       whileInView="visible"
       viewport={{ once: true, margin: "-100px" }}
       variants={sectionVariants}
-      className="py-20 md:py-24 bg-muted dark:bg-muted/50 relative"
+      className="py-20 md:py-24 relative"
     >
       <div className="text-center mb-8 px-5 sm:px-6">
         <motion.h2
@@ -56,11 +56,7 @@ export default function SkillMarqueeWrapper() {
       </div>
       <div className="relative w-full overflow-hidden py-8">
         <div className="w-[100vw] relative left-[calc(-50vw+50%)]">
-          <UnifiedSkillMarquee
-            speed={25}
-            itemSize="large"
-            backgroundColor="hsl(var(--muted-foreground) / .1)"
-          />
+          <UnifiedSkillMarquee speed={25} itemSize="large" />
         </div>
       </div>
     </motion.section>

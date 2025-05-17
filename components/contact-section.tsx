@@ -1,19 +1,17 @@
 "use client";
 
-import { useRef, memo } from "react";
-import { motion, useInView, useReducedMotion } from "framer-motion";
-import dynamic from "next/dynamic";
 
+import dynamic from "next/dynamic";
 import ContactForm from "@/components/contact-form";
 import ContactInfo from "@/components/contact-info";
+
+import { useRef, memo } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 
-// Dynamically import the ContactCanvas component
 const ContactCanvas = dynamic(() => import("@/components/contact-canvas"), {
-  loading: () => <div className="absolute inset-0 z-0 bg-background/30" />,
+  loading: () => <div className="absolute inset-0 z-0" />,
 });
 
-// Add structured data for the contact section
 const contactStructuredData = {
   "@context": "https://schema.org",
   "@type": "ContactPage",
@@ -30,45 +28,6 @@ const contactStructuredData = {
 
 const ContactSection = memo(function ContactSection() {
   const sectionRef = useRef<HTMLElement>(null);
-  const isInView = useInView(sectionRef, {
-    once: false,
-    amount: 0.2,
-    margin: "0px 0px -100px 0px",
-  });
-  const prefersReducedMotion = useReducedMotion();
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: prefersReducedMotion ? 0 : 0.2,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: prefersReducedMotion ? { opacity: 0.9 } : { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: prefersReducedMotion ? 0.1 : 0.6 },
-    },
-  };
-
-  const cardVariants = {
-    hidden: prefersReducedMotion ? { opacity: 0.9 } : { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        type: "spring",
-        stiffness: 100,
-        damping: 15,
-        delay: prefersReducedMotion ? 0 : 0.1,
-      },
-    },
-  };
 
   return (
     <>
@@ -85,28 +44,8 @@ const ContactSection = memo(function ContactSection() {
         aria-labelledby="contact-heading"
       >
         <ContactCanvas />
-        <div className="max-w-[1200px] mx-auto px-5 sm:px-6 relative z-10">
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            animate={isInView ? "visible" : "hidden"}
-            className="text-center mb-12"
-          >
-            <motion.h2
-              variants={itemVariants}
-              className="text-3xl md:text-4xl font-bold tracking-tighter mb-4"
-              id="contact-heading"
-            >
-              Get In Touch
-            </motion.h2>
-          </motion.div>
-
-          <motion.div
-            variants={cardVariants}
-            initial="hidden"
-            animate={isInView ? "visible" : "hidden"}
-            className="relative z-10"
-          >
+        <div className="max-w-[1360px] mx-auto px-5 sm:px-6 relative z-10">
+          <div className="max-w-5xl mx-auto relative z-10">
             <Card className="border-2 shadow-lg backdrop-blur-lg bg-background/60">
               <CardContent className="p-6 sm:p-8">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
@@ -119,7 +58,7 @@ const ContactSection = memo(function ContactSection() {
                 </div>
               </CardContent>
             </Card>
-          </motion.div>
+          </div>
         </div>
       </section>
     </>

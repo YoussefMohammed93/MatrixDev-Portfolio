@@ -4,6 +4,7 @@ import AboutSection from "@/components/about-section";
 import ContactSection from "@/components/contact-section";
 import SkillMarqueeWrapper from "@/components/SkillMarqueeWrapper";
 import ProjectsSectionWrapper from "@/components/projects-section-wrapper";
+import TimelineSectionWrapper from "@/components/timeline/TimelineSectionWrapper";
 
 export default function Home() {
   return (
@@ -11,6 +12,7 @@ export default function Home() {
       <HeroSection />
       <AboutSection />
       <ProjectsSectionWrapper />
+      <TimelineSectionWrapper />
       <SkillMarqueeWrapper />
       <ContactSection />
       <BackToTop />

@@ -34,20 +34,43 @@ function useActiveSection(sections: Array<{ id: string }>, offset = 100) {
 
   useEffect(() => {
     const handleScroll = throttle(() => {
-      const scrollPosition = window.scrollY + offset;
+      const viewportHeight = window.innerHeight;
+      let currentSection = "hero";
+      let maxVisibleArea = 0;
 
       for (const section of sections) {
         const element = document.getElementById(section.id);
-        if (!element) continue;
+        if (!element) {
+          console.warn(`Element with id ${section.id} not found`);
+          continue;
+        }
 
         const { offsetTop, offsetHeight } = element;
-        if (
-          scrollPosition >= offsetTop &&
-          scrollPosition < offsetTop + offsetHeight
-        ) {
-          setActiveSection(section.id);
+        const elementBottom = offsetTop + offsetHeight;
+
+        const visibleTop = Math.max(offsetTop, window.scrollY);
+        const visibleBottom = Math.min(
+          elementBottom,
+          window.scrollY + viewportHeight
+        );
+        const visibleHeight = Math.max(0, visibleBottom - visibleTop);
+
+        const visiblePercentage = (visibleHeight / offsetHeight) * 100;
+
+        if (section.id === "timeline" && visiblePercentage > 30) {
+          currentSection = "timeline";
           break;
         }
+
+        if (visiblePercentage > maxVisibleArea) {
+          maxVisibleArea = visiblePercentage;
+          currentSection = section.id;
+        }
+      }
+
+      if (currentSection !== activeSection) {
+        console.log(`Setting active section to: ${currentSection}`);
+        setActiveSection(currentSection);
       }
     }, 100);
 
@@ -55,7 +78,7 @@ function useActiveSection(sections: Array<{ id: string }>, offset = 100) {
     handleScroll();
 
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [sections, offset]);
+  }, [sections, offset, activeSection]);
 
   return activeSection;
 }
@@ -89,6 +112,12 @@ export default function Navigation() {
       ariaLabel: "Navigate to projects section",
     },
     {
+      name: "Timeline",
+      href: "#timeline",
+      id: "timeline",
+      ariaLabel: "Navigate to timeline section",
+    },
+    {
       name: "Skills",
       href: "#skills",
       id: "skills",
@@ -102,7 +131,7 @@ export default function Navigation() {
     },
   ];
 
-  const activeSection = useActiveSection(navLinks, 100);
+  const activeSection = useActiveSection(navLinks, 150);
 
   useEffect(() => {
     const handleScroll = throttle(() => {
@@ -173,14 +202,14 @@ export default function Navigation() {
       className={cn(
         "fixed top-0 w-full z-50 transition-all duration-300 overflow-hidden",
         isScrolled
-          ? "bg-background/75 backdrop-blur-md border-b border-border/40 py-3"
+          ? "bg-background/75 backdrop-blur-md border-b border-border/50 py-3"
           : "bg-background/30 backdrop-blur-sm py-5"
       )}
       role="banner"
       aria-label="Main navigation"
     >
       <NavBackground scrollY={scrollY} />
-      <div className="max-w-[1200px] mx-auto px-4 flex items-center justify-between">
+      <div className="max-w-[1360px] mx-auto px-4 flex items-center justify-between">
         <motion.div initial="initial" animate="animate" variants={logoVariants}>
           <Link
             href="#hero"
@@ -191,7 +220,7 @@ export default function Navigation() {
           </Link>
         </motion.div>
         <nav
-          className="hidden md:flex items-center space-x-8"
+          className="hidden md:flex items-center space-x-5"
           aria-label="Main navigation"
         >
           {navLinks.map((link, i) => (

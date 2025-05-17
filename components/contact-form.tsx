@@ -1,15 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { motion } from "framer-motion";
-import { Send, Loader2 } from "lucide-react";
-
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
-import { useToast } from "@/hooks/use-toast";
 import {
   Form,
   FormControl,
@@ -18,10 +9,17 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { useForm } from "react-hook-form";
 import {
   contactFormSchema,
   ContactFormValues,
 } from "@/lib/schemas/contact-form-schema";
+import { useToast } from "@/hooks/use-toast";
+import { Send, Loader2 } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 export default function ContactForm() {
   const { toast } = useToast();
@@ -40,7 +38,6 @@ export default function ContactForm() {
     setIsSubmitting(true);
 
     try {
-      // Send data to Formspree
       const response = await fetch("https://formspree.io/f/xldbzbvd", {
         method: "POST",
         headers: {
@@ -78,36 +75,8 @@ export default function ContactForm() {
     }
   }
 
-  const formVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        type: "spring",
-        stiffness: 100,
-        damping: 15,
-      },
-    },
-  };
-
   return (
-    <motion.div
-      initial="hidden"
-      animate="visible"
-      variants={formVariants}
-      className="w-full"
-    >
+    <div className="w-full">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -115,7 +84,7 @@ export default function ContactForm() {
           action="https://formspree.io/f/xldbzbvd"
           method="POST"
         >
-          <motion.div variants={itemVariants}>
+          <div>
             <FormField
               control={form.control}
               name="name"
@@ -129,9 +98,8 @@ export default function ContactForm() {
                 </FormItem>
               )}
             />
-          </motion.div>
-
-          <motion.div variants={itemVariants}>
+          </div>
+          <div>
             <FormField
               control={form.control}
               name="email"
@@ -145,9 +113,8 @@ export default function ContactForm() {
                 </FormItem>
               )}
             />
-          </motion.div>
-
-          <motion.div variants={itemVariants}>
+          </div>
+          <div>
             <FormField
               control={form.control}
               name="message"
@@ -165,9 +132,8 @@ export default function ContactForm() {
                 </FormItem>
               )}
             />
-          </motion.div>
-
-          <motion.div whileHover="hover" whileTap="tap">
+          </div>
+          <div>
             <Button
               type="submit"
               className="w-full sm:w-auto"
@@ -185,9 +151,9 @@ export default function ContactForm() {
                 </>
               )}
             </Button>
-          </motion.div>
+          </div>
         </form>
       </Form>
-    </motion.div>
+    </div>
   );
 }
