@@ -153,7 +153,7 @@ export default function ProjectDetail({ project }: { project: Project }) {
           >
             <h2 className="text-2xl font-bold mb-2">Project Gallery</h2>
             <p className="text-muted-foreground mb-4 text-sm">
-              Click on an image to view it in full size
+              Click on an image to view it in full size.
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {project.galleryImages.map((image, index) => (

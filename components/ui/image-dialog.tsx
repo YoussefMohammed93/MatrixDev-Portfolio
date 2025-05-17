@@ -160,7 +160,7 @@ export function ImageDialog({
                   e.stopPropagation();
                   onClose();
                 }}
-                className="absolute top-3 right-3 p-2 rounded-full bg-background/70 hover:bg-background/90 backdrop-blur-sm text-foreground transition-colors z-20"
+                className="absolute top-3 right-5 p-2 rounded-full bg-background/70 hover:bg-background/90 backdrop-blur-sm text-foreground transition-colors z-20"
                 aria-label="Close dialog"
               >
                 <X className="h-5 w-5" />
