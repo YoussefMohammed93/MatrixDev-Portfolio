@@ -3,8 +3,8 @@
 import HeroCanvasWrapper from "@/components/hero-canvas-wrapper";
 
 import { useState, useEffect } from "react";
+import { ArrowDown, Mail, Github } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { ArrowDown, Mail, GithubIcon } from "lucide-react";
 import { motion, useAnimation, AnimatePresence } from "framer-motion";
 
 export default function HeroSection() {
@@ -40,22 +40,21 @@ export default function HeroSection() {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.08,
-        delayChildren: 0.05,
+        staggerChildren: 0.15,
+        delayChildren: 0.2,
       },
     },
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: 30 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
         type: "spring",
-        stiffness: 120,
-        damping: 10,
-        duration: 0.4,
+        stiffness: 100,
+        damping: 12,
       },
     },
   };
@@ -87,10 +86,10 @@ export default function HeroSection() {
 
   const textAnimationVariants = {
     initial: {
-      y: 15,
+      y: 20,
       opacity: 0,
-      filter: "blur(4px)",
-      scale: 0.97,
+      filter: "blur(8px)",
+      scale: 0.95,
     },
     animate: {
       y: 0,
@@ -98,17 +97,17 @@ export default function HeroSection() {
       filter: "blur(0px)",
       scale: 1,
       transition: {
-        duration: 0.35,
+        duration: 0.5,
         ease: [0.19, 1.0, 0.22, 1.0],
       },
     },
     exit: {
-      y: -15,
+      y: -20,
       opacity: 0,
-      filter: "blur(4px)",
-      scale: 0.97,
+      filter: "blur(8px)",
+      scale: 0.95,
       transition: {
-        duration: 0.25,
+        duration: 0.3,
         ease: [0.19, 1.0, 0.22, 1.0],
       },
     },
@@ -238,7 +237,7 @@ export default function HeroSection() {
                     }
                     aria-label="Visit my GitHub profile"
                   >
-                    <GithubIcon className="h-5 w-5" aria-hidden="true" />
+                    <Github className="h-5 w-5" aria-hidden="true" />
                     <span>GitHub Profile</span>
                   </Button>
                 </motion.div>

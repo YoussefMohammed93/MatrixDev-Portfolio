@@ -13,9 +13,9 @@ const AboutSectionClient = memo(function AboutSectionClient({
 }: AboutSectionClientProps) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, {
-    once: true, // Changed to true for better performance
-    amount: 0.1, // Reduced threshold for earlier triggering
-    margin: "0px 0px -50px 0px", // Adjusted margin
+    once: true,
+    amount: 0.1,
+    margin: "0px 0px -50px 0px",
   });
   const prefersReducedMotion = useReducedMotion();
 
@@ -24,20 +24,20 @@ const AboutSectionClient = memo(function AboutSectionClient({
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: prefersReducedMotion ? 0 : 0.08, // Further reduced stagger time
+        staggerChildren: prefersReducedMotion ? 0 : 0.08,
         when: "beforeChildren",
-        duration: 0.3, // Added explicit duration
+        duration: 0.3,
       },
     },
   };
 
   const itemVariants = {
-    hidden: prefersReducedMotion ? { opacity: 0.95 } : { opacity: 0, y: 5 }, // Further reduced y distance
+    hidden: prefersReducedMotion ? { opacity: 0.95 } : { opacity: 0, y: 5 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: prefersReducedMotion ? 0.1 : 0.3, // Further reduced duration
+        duration: prefersReducedMotion ? 0.1 : 0.3,
         ease: "easeOut",
       },
     },
