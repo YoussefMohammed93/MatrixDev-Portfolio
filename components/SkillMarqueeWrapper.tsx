@@ -54,8 +54,14 @@ export default function SkillMarqueeWrapper() {
         </motion.p>
       </div>
       <div className="relative w-full overflow-hidden py-8">
-        <div className="w-[100vw] relative left-[calc(-50vw+50%)]">
-          <UnifiedSkillMarquee speed={25} itemSize="large" />
+        <div
+          className="w-screen relative left-[calc(-50vw+50%)]"
+          style={{
+            overflowX: "hidden",
+            maxWidth: "100vw",
+          }}
+        >
+          <UnifiedSkillMarquee itemSize="large" />
         </div>
       </div>
     </motion.section>

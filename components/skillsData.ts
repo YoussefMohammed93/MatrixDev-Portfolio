@@ -52,7 +52,7 @@ export const skillsData: Skill[] = [
   },
   {
     name: "Zod",
-    icon: "https://zod.dev/logo.svg",
+    icon: "/zod.png",
     category: "frontend",
   },
   {

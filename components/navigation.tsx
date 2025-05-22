@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import dynamic from "next/dynamic";
+import { useRouter } from "next/navigation";
 
 import { cn } from "@/lib/utils";
 import { useTheme } from "next-themes";
@@ -101,12 +102,29 @@ function useActiveSection(sections: Array<{ id: string }>, offset = 100) {
 
 export default function Navigation() {
   const headerRef = useRef<HTMLElement>(null);
+  const router = useRouter();
 
   const [scrollY, setScrollY] = useState(0);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const { theme, setTheme } = useTheme();
+
+  const handleNavigation = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    link: { id: string; href: string }
+  ) => {
+    if (isProjectsPage) {
+      e.preventDefault();
+      router.push("/");
+      setTimeout(() => {
+        const element = document.getElementById(link.id);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
+      }, 300);
+    }
+  };
 
   const navLinks = [
     {
@@ -232,7 +250,12 @@ export default function Navigation() {
     >
       <NavBackground scrollY={scrollY} />
       <div className="max-w-[1360px] mx-auto px-4 flex items-center justify-between">
-        <motion.div initial="initial" animate="animate" variants={logoVariants}>
+        <motion.div
+          initial="initial"
+          animate="animate"
+          variants={logoVariants}
+          className="z-10"
+        >
           <Link
             href="/"
             aria-label="Go to home page"
@@ -255,7 +278,8 @@ export default function Navigation() {
               className="relative"
             >
               <Link
-                href={isProjectsPage ? `/${link.href}` : link.href}
+                href={link.href}
+                onClick={(e) => handleNavigation(e, link)}
                 className={cn(
                   "text-sm sm:text-base font-medium transition-all px-1 py-2 relative group",
                   link.id === "hero" && isProjectsPage
@@ -474,7 +498,7 @@ export default function Navigation() {
                   className="overflow-hidden"
                 >
                   <Link
-                    href={isProjectsPage ? `/${link.href}` : link.href}
+                    href={link.href}
                     className={cn(
                       "flex items-center text-sm font-medium py-3 px-3 rounded-md transition-all relative overflow-hidden",
                       link.id === "hero" && isProjectsPage
@@ -483,7 +507,10 @@ export default function Navigation() {
                         ? "bg-primary/10 text-primary"
                         : "hover:bg-primary/5"
                     )}
-                    onClick={() => setIsMobileMenuOpen(false)}
+                    onClick={(e) => {
+                      handleNavigation(e, link);
+                      setIsMobileMenuOpen(false);
+                    }}
                     aria-label={link.ariaLabel}
                     aria-current={
                       activeSection === link.id ? "page" : undefined
