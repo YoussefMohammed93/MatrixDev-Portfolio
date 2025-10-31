@@ -2,10 +2,10 @@
 
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import { useRouter } from "next/navigation";
 
 import { cn } from "@/lib/utils";
 import { useTheme } from "next-themes";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Moon, Sun } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
@@ -107,8 +107,13 @@ export default function Navigation() {
   const [scrollY, setScrollY] = useState(0);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   const { theme, setTheme } = useTheme();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleNavigation = (
     e: React.MouseEvent<HTMLAnchorElement>,
@@ -156,12 +161,6 @@ export default function Navigation() {
       href: "#skills",
       id: "skills",
       ariaLabel: "Navigate to skills section",
-    },
-    {
-      name: "Services",
-      href: "#services",
-      id: "services",
-      ariaLabel: "Navigate to services section",
     },
     {
       name: "Contact",
@@ -330,38 +329,42 @@ export default function Navigation() {
                 whileHover={{ scale: 1 }}
                 transition={{ type: "spring", stiffness: 400, damping: 25 }}
               />
-              <motion.div
-                initial={{ rotate: 0 }}
-                animate={{
-                  rotate: theme === "dark" ? 180 : 0,
-                  scale: theme === "dark" ? 0 : 1,
-                  y: theme === "dark" ? 20 : 0,
-                }}
-                transition={{
-                  duration: 0.4,
-                  ease: [0.19, 1.0, 0.22, 1.0],
-                  scale: { duration: 0.2 },
-                }}
-                className="absolute inset-0 flex items-center justify-center"
-              >
-                <Sun className="h-5 w-5 text-yellow-500" />
-              </motion.div>
-              <motion.div
-                initial={{ rotate: -180 }}
-                animate={{
-                  rotate: theme === "dark" ? 0 : -180,
-                  scale: theme === "dark" ? 1 : 0,
-                  y: theme === "dark" ? 0 : -20,
-                }}
-                transition={{
-                  duration: 0.4,
-                  ease: [0.19, 1.0, 0.22, 1.0],
-                  scale: { duration: 0.2 },
-                }}
-                className="absolute inset-0 flex items-center justify-center"
-              >
-                <Moon className="h-5 w-5 text-blue-300" />
-              </motion.div>
+              {mounted && (
+                <>
+                  <motion.div
+                    initial={{ rotate: 0 }}
+                    animate={{
+                      rotate: theme === "dark" ? 180 : 0,
+                      scale: theme === "dark" ? 0 : 1,
+                      y: theme === "dark" ? 20 : 0,
+                    }}
+                    transition={{
+                      duration: 0.4,
+                      ease: [0.19, 1.0, 0.22, 1.0],
+                      scale: { duration: 0.2 },
+                    }}
+                    className="absolute inset-0 flex items-center justify-center"
+                  >
+                    <Sun className="h-5 w-5 text-yellow-500" />
+                  </motion.div>
+                  <motion.div
+                    initial={{ rotate: -180 }}
+                    animate={{
+                      rotate: theme === "dark" ? 0 : -180,
+                      scale: theme === "dark" ? 1 : 0,
+                      y: theme === "dark" ? 0 : -20,
+                    }}
+                    transition={{
+                      duration: 0.4,
+                      ease: [0.19, 1.0, 0.22, 1.0],
+                      scale: { duration: 0.2 },
+                    }}
+                    className="absolute inset-0 flex items-center justify-center"
+                  >
+                    <Moon className="h-5 w-5 text-blue-300" />
+                  </motion.div>
+                </>
+              )}
             </Button>
           </motion.div>
         </nav>
@@ -385,38 +388,42 @@ export default function Navigation() {
                 whileHover={{ scale: 1 }}
                 transition={{ type: "spring", stiffness: 400, damping: 25 }}
               />
-              <motion.div
-                initial={{ rotate: 0 }}
-                animate={{
-                  rotate: theme === "dark" ? 180 : 0,
-                  scale: theme === "dark" ? 0 : 1,
-                  y: theme === "dark" ? 20 : 0,
-                }}
-                transition={{
-                  duration: 0.4,
-                  ease: [0.19, 1.0, 0.22, 1.0],
-                  scale: { duration: 0.2 },
-                }}
-                className="absolute inset-0 flex items-center justify-center"
-              >
-                <Sun className="h-5 w-5 text-yellow-500" />
-              </motion.div>
-              <motion.div
-                initial={{ rotate: -180 }}
-                animate={{
-                  rotate: theme === "dark" ? 0 : -180,
-                  scale: theme === "dark" ? 1 : 0,
-                  y: theme === "dark" ? 0 : -20,
-                }}
-                transition={{
-                  duration: 0.4,
-                  ease: [0.19, 1.0, 0.22, 1.0],
-                  scale: { duration: 0.2 },
-                }}
-                className="absolute inset-0 flex items-center justify-center"
-              >
-                <Moon className="h-5 w-5 text-blue-300" />
-              </motion.div>
+              {mounted && (
+                <>
+                  <motion.div
+                    initial={{ rotate: 0 }}
+                    animate={{
+                      rotate: theme === "dark" ? 180 : 0,
+                      scale: theme === "dark" ? 0 : 1,
+                      y: theme === "dark" ? 20 : 0,
+                    }}
+                    transition={{
+                      duration: 0.4,
+                      ease: [0.19, 1.0, 0.22, 1.0],
+                      scale: { duration: 0.2 },
+                    }}
+                    className="absolute inset-0 flex items-center justify-center"
+                  >
+                    <Sun className="h-5 w-5 text-yellow-500" />
+                  </motion.div>
+                  <motion.div
+                    initial={{ rotate: -180 }}
+                    animate={{
+                      rotate: theme === "dark" ? 0 : -180,
+                      scale: theme === "dark" ? 1 : 0,
+                      y: theme === "dark" ? 0 : -20,
+                    }}
+                    transition={{
+                      duration: 0.4,
+                      ease: [0.19, 1.0, 0.22, 1.0],
+                      scale: { duration: 0.2 },
+                    }}
+                    className="absolute inset-0 flex items-center justify-center"
+                  >
+                    <Moon className="h-5 w-5 text-blue-300" />
+                  </motion.div>
+                </>
+              )}
             </Button>
           </motion.div>
           <motion.div

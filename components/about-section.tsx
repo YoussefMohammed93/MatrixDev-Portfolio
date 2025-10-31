@@ -3,24 +3,34 @@ import Image from "next/image";
 import { Metadata } from "next";
 import { FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import AboutSectionClient from "./about-section-client";
+import AboutSectionClient, {
+  AboutHeading,
+  AboutUnderline,
+  AboutParagraph,
+  AboutButtons,
+} from "./about-section-client";
 
 export const aboutStructuredData = {
   "@context": "https://schema.org",
   "@type": "Person",
-  name: "Youssef Mohammed",
-  jobTitle: "Frontend Developer",
+  name: "Youssef Mohamed",
+  jobTitle: "Front-End Developer & Content Creator",
   description:
-    "Frontend Developer specializing in Next.js, React.js, and React Native with 3 years of experience",
+    "Front-End Developer and Information Systems student passionate about building modern, accessible, and high-performance web experiences with 30+ freelance projects completed",
   knowsAbout: [
     "React",
     "Next.js",
     "JavaScript",
     "TypeScript",
-    "CSS",
-    "React Native",
+    "Tailwind CSS",
+    "ShadCN UI",
+    "Framer Motion",
+    "Svelte",
+    "Convex",
     "Web Development",
-    "Mobile Development",
+    "UI/UX Design",
+    "AI Integration",
+    "Automation",
   ],
   url: "https://youssefmohammed.com",
   sameAs: [
@@ -31,15 +41,15 @@ export const aboutStructuredData = {
   alumniOf: {
     "@type": "CollegeOrUniversity",
     name: "Mansoura University",
-    department: "Faculty of Computer Science",
+    department: "Information Systems",
   },
 };
 
 export function generateMetadata(): Metadata {
   return {
-    title: "About Youssef Mohammed - Frontend Developer",
+    title: "About Youssef Mohamed - Front-End Developer & Content Creator",
     description:
-      "Learn about Youssef Mohammed, a Frontend Developer specializing in Next.js, React.js, and React Native with 3 years of experience.",
+      "Learn about Youssef Mohamed, a Front-End Developer and Information Systems student at Mansoura University with 30+ freelance projects, passionate about modern web development, AI integration, and content creation.",
     alternates: {
       canonical: "https://youssefmohammed.com/about",
     },
@@ -65,20 +75,20 @@ export default function AboutSection() {
         <div className="max-w-[1360px] mx-auto px-5 sm:px-6">
           <AboutSectionClient>
             <div
-              className="relative h-[500px] rounded-lg overflow-hidden order-2 md:order-1 md:col-span-4 w-full"
+              className="relative h-[500px] rounded-2xl overflow-hidden order-2 md:order-1 md:col-span-4 w-full group"
               itemProp="image"
               itemScope
               itemType="https://schema.org/ImageObject"
             >
               <Image
-                src="/me-about.jpg"
-                alt="Youssef Mohammed - Frontend Developer"
+                src="/me.jpg"
+                alt="Youssef Mohamed - Front-End Developer"
                 fill
-                sizes="(max-width: 640px) 100vw, (max-width: 768px) 33vw, 400px"
+                sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 400px"
                 className="object-cover"
                 loading="eager"
                 fetchPriority="high"
-                quality={85}
+                quality={90}
                 priority
                 placeholder="blur"
                 blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAQABADASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAb/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWEREiMxUf/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
@@ -96,47 +106,69 @@ export default function AboutSection() {
               />
             </div>
             <div className="space-y-5 sm:space-y-6 order-1 md:order-2 md:col-span-8">
-              <div>
+              <AboutHeading>
                 <h2
                   id="about-heading"
-                  className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tighter mb-3 sm:mb-4"
+                  className="text-3xl md:text-4xl font-bold tracking-tighter mb-4 bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent"
                   itemProp="headline"
                 >
                   About Me
                 </h2>
-                <div className="w-16 sm:w-20 h-1 bg-primary mb-4 sm:mb-6"></div>
+                <AboutUnderline />
+              </AboutHeading>
+              <div className="space-y-4">
+                <AboutParagraph delay={0.1}>
+                  <span itemProp="description">
+                    I'm{" "}
+                    <span className="font-semibold text-foreground">
+                      Youssef Mohamed
+                    </span>
+                    , a Front-End Developer and Information Systems student at{" "}
+                    <span className="font-semibold text-foreground">
+                      Mansoura University
+                    </span>{" "}
+                    (3rd year). I'm passionate about building modern,
+                    accessible, and high-performance web experiences with a
+                    strong focus on UI/UX consistency and clean design systems.
+                  </span>
+                </AboutParagraph>
+                <AboutParagraph delay={0.2}>
+                  <span itemProp="description">
+                    I've worked on{" "}
+                    <span className="font-semibold text-foreground">
+                      30+ real freelance projects
+                    </span>
+                    , creating responsive and interactive websites using
+                    Next.js, React, Tailwind CSS, and shadcn/ui — always aiming
+                    for smooth, elegant user experiences.
+                  </span>
+                </AboutParagraph>
+                <AboutParagraph delay={0.3}>
+                  <span itemProp="description">
+                    Beyond development, I create{" "}
+                    <span className="font-semibold text-foreground">
+                      content and vlogs
+                    </span>{" "}
+                    about my daily life as a developer and student — sharing
+                    productivity habits, tech insights, and growth in the web
+                    industry.
+                  </span>
+                </AboutParagraph>
+                <AboutParagraph delay={0.4}>
+                  <span itemProp="description">
+                    Recently, I've been exploring how to merge{" "}
+                    <span className="font-semibold text-foreground">
+                      AI, automation, and web development
+                    </span>{" "}
+                    to build smart, scalable platforms tailored to real-world
+                    needs. I'm passionate about using tools like n8n and modern
+                    AI APIs to make technology work more efficiently for people
+                    and businesses.
+                  </span>
+                </AboutParagraph>
               </div>
-              <p
-                className="text-base sm:text-lg text-muted-foreground"
-                itemProp="description"
-              >
-                I am a Frontend developer specializing in Next.js, with 3 years
-                of experience and a strong foundation in front-end technologies
-                like React, JavaScript, CSS. I excel at building dynamic,
-                responsive web applications and have extended my skill set to
-                include mobile app development using React Native.
-              </p>
-              <p
-                className="text-base sm:text-lg text-muted-foreground"
-                itemProp="description"
-              >
-                Passionate about creating seamless user experiences, I thrive in
-                collaborative environments and am committed to continuous
-                learning and growth in the ever-evolving field of web and mobile
-                development. I'm also a student in the Faculty of Computer
-                Science at Mansoura University.
-              </p>
-              <p
-                className="text-base sm:text-lg text-muted-foreground"
-                itemProp="description"
-              >
-                Outside of coding, I enjoy exploring new technologies,
-                contributing to open-source projects, and staying updated with
-                trends in software development. I believe in writing clean,
-                maintainable code and refining my skills through hands-on
-                projects and community engagement.
-              </p>
-              <div className="pt-3 sm:pt-4 flex flex-wrap gap-3 sm:gap-4">
+
+              <AboutButtons>
                 <Button className="gap-2" aria-label="Download CV" asChild>
                   <a
                     href="/resume.pdf"
@@ -242,7 +274,7 @@ export default function AboutSection() {
                     <span className="sr-only">Facebook</span>
                   </Button>
                 </Link>
-              </div>
+              </AboutButtons>
             </div>
           </AboutSectionClient>
         </div>

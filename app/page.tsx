@@ -1,10 +1,9 @@
 import BackToTop from "@/components/back-to-top";
 import HeroSection from "@/components/hero-section";
 import AboutSection from "@/components/about-section";
+import SkillsSection from "@/components/skills-section";
 import ContactSection from "@/components/contact-section";
-import SkillMarqueeWrapper from "@/components/SkillMarqueeWrapper";
 import ProjectsSectionWrapper from "@/components/projects-section-wrapper";
-import ServicesSectionWrapper from "@/components/services-section-wrapper";
 import TimelineSectionWrapper from "@/components/timeline/TimelineSectionWrapper";
 
 export default function Home() {
@@ -14,8 +13,7 @@ export default function Home() {
       <AboutSection />
       <ProjectsSectionWrapper />
       <TimelineSectionWrapper />
-      <SkillMarqueeWrapper />
-      <ServicesSectionWrapper />
+      <SkillsSection />
       <ContactSection />
       <BackToTop />
     </main>

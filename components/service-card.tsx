@@ -4,7 +4,7 @@ import type { ServiceData } from "@/data/servicesData";
 
 import { motion } from "framer-motion";
 import { useTheme } from "next-themes";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Code, Layers, Smartphone } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 
@@ -18,6 +18,11 @@ export default function ServiceCard({ service, index }: ServiceCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!cardRef.current) return;
@@ -51,7 +56,9 @@ export default function ServiceCard({ service, index }: ServiceCardProps) {
     }
   };
 
-  const currentColor = theme === "dark" ? service.darkColor : service.color;
+  // Prevent hydration mismatch by using default color until mounted
+  const currentColor =
+    mounted && theme === "dark" ? service.darkColor : service.color;
 
   return (
     <motion.div

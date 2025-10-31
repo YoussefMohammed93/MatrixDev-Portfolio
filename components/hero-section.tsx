@@ -3,21 +3,23 @@
 import HeroCanvasWrapper from "@/components/hero-canvas-wrapper";
 
 import { useState, useEffect } from "react";
-import { ArrowDown, Mail, Github } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { ArrowDown, Mail, Github } from "lucide-react";
 import { motion, useAnimation, AnimatePresence } from "framer-motion";
 
 export default function HeroSection() {
   const controls = useAnimation();
+  const [mounted, setMounted] = useState(false);
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
   const textOptions = [
     "Frontend Developer",
-    "Next.js Full Stack Developer",
     "React.js Specialist",
+    "Next.js Full Stack Developer",
     "React Native Mobile Developer",
   ];
 
   useEffect(() => {
+    setMounted(true);
     const interval = setInterval(() => {
       setCurrentTextIndex((prevIndex) => (prevIndex + 1) % textOptions.length);
     }, 3500);
@@ -113,11 +115,12 @@ export default function HeroSection() {
     },
   };
 
+  // Use static data for structured data to prevent hydration mismatch
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "Person",
     name: "Youssef Mohammed",
-    jobTitle: textOptions[currentTextIndex],
+    jobTitle: "Frontend Developer",
     url: "https://youssefmohammed.com",
     sameAs: [
       "https://github.com/youssefmohammed",
@@ -146,15 +149,15 @@ export default function HeroSection() {
         >
           <motion.div
             variants={containerVariants}
-            initial="hidden"
-            animate={controls}
+            initial={mounted ? "hidden" : false}
+            animate={mounted ? controls : "visible"}
             className="flex flex-col items-center"
           >
             <motion.div
               className="absolute inset-0 bg-background/10 backdrop-blur-sm rounded-xl"
               variants={backgroundVariants}
-              initial="hidden"
-              animate="visible"
+              initial={mounted ? "hidden" : false}
+              animate={mounted ? "visible" : false}
               aria-hidden="true"
             />
             <motion.div
@@ -268,8 +271,8 @@ export default function HeroSection() {
             >
               <motion.div
                 variants={scrollIndicatorVariants}
-                initial="initial"
-                animate="animate"
+                initial={mounted ? "initial" : false}
+                animate={mounted ? "animate" : false}
                 className="flex flex-col gap-2 items-center cursor-pointer group"
                 onClick={scrollToNextSection}
                 role="button"
